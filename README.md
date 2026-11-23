@@ -50,7 +50,7 @@ The rest of this guide walks through each step with pictures.
 Train times need an API key from National Rail (see [section 6](#6-get-a-rail-key-train-times-only)). 
 Normal operation of Buses, Tube, aircraft and satellites need no keys at all.
 There is an optional API key for OpenWeather to display the weather on the screen.
-There is also an optional API key for RapidAPI, which lets Flight Watch fetch scheduled times for a flight you're tracking. The same key is **required for Airport mode**, which shows no flights without it.
+There is also an API key for RapidAPI, which you need for full functionality of the **Flight tracker** (it fetches scheduled times for a flight you're tracking) and **Airport mode** (which shows no flights without it).
 
 ---
 
@@ -159,9 +159,9 @@ An API key is a free password that a data provider gives you so Waypoint can fet
 | **Rail Data Marketplace key** | **Required for train times** | Train departures | [Steps below](#rail-data-marketplace-key-train-times) |
 | **OpenWeatherMap key** | Optional | Weather on the display | [Steps below](#openweathermap-key-weather) |
 | **TfL key** | Optional (recommended) | Smoother Tube and bus lookups | [Steps below](#tfl-key-tube-and-bus) |
-| **RapidAPI key** | Optional, but **required for Airport mode** | Airport departures/arrivals boards, and Flight Watch scheduled times | [Steps below](#rapidapi-key-airport-mode-and-flight-watch) |
+| **RapidAPI key** | **Needed for full Flight tracker and Airport mode functionality** | Airport departures/arrivals boards, and Flight Watch scheduled times | [Steps below](#rapidapi-key-airport-mode-and-flight-watch) |
 
-Buses, Tube, overhead aircraft and satellites all work without any key at all. Airport mode is the one exception: it needs a RapidAPI key.
+Buses, Tube, overhead aircraft and satellites all work without any key at all. The Flight tracker and Airport mode are the exceptions: they need a RapidAPI key for full functionality (Airport mode shows no flights without one).
 
 ### Step 4: Default mode
 
@@ -175,7 +175,7 @@ Buses, Tube, overhead aircraft and satellites all work without any key at all. A
 - **Ground sub-mode**: if you chose Ground, pick Rail, Tube, Bus or Combined. *Combined* mixes all three into one board, sorted by time.
 - **Air sub-mode**: if you chose Air, pick which board to start on:
   - **Overhead**: the aircraft flying near you, using the radius, filters and overhead distance from step 2. No key needed.
-  - **Flight tracker**: type a flight number (IATA like `VS137`, ICAO like `VIR137`, or a full callsign like `VIR137Y`). When you apply, Waypoint looks the flight up and starts tracking it. A RapidAPI key is optional: with one it fetches the scheduled times, without one the progress comes from the plane's live position.
+  - **Flight tracker**: type a flight number (IATA like `VS137`, ICAO like `VIR137`, or a full callsign like `VIR137Y`). When you apply, Waypoint looks the flight up and starts tracking it. A RapidAPI key is needed for full functionality: with one it fetches the scheduled times, without one the progress comes from the plane's live position.
   - **Airport**: a live departures or arrivals board for an airport. Choose the airport from the list (the main UK airports are included) or pick *Other* and enter any 3-letter IATA code such as `CDG`. Then choose **Departures** or **Arrivals**, and how often it refreshes (every 60 to 240 minutes). This needs a RapidAPI key, and the wizard warns you if you haven't added one yet.
 
 Tap **Apply Everything to Board**. Your first departures will appear on the display shortly after.
@@ -240,10 +240,10 @@ The free "Current Weather" tier is plenty. **New keys can take up to a couple of
 
 ### RapidAPI key (Airport mode and Flight Watch)
 
-**Required for Airport mode, optional for Flight Watch.** One key covers both features and they share the same free-plan quota.
+**Needed for full Flight Watch and Airport mode functionality.** One key covers both features and they share the same free-plan quota.
 
 - **Airport mode** shows live departures or arrivals for an airport. It can't show any flights without this key.
-- **Flight Watch** tracks one particular flight. Without a key it still works if you enter the departure and arrival details yourself. With a key, Waypoint can fetch the scheduled times automatically when you enter a flight number.
+- **Flight Watch** tracks one particular flight. Without a key it can only use the plane's live position (or details you enter yourself). With a key, Waypoint fetches the scheduled times automatically when you enter a flight number.
 
 1. Go to [rapidapi.com](https://rapidapi.com) and **sign up** or sign in.
 2. Search for **AeroDataBox** and open its API page.
@@ -285,6 +285,8 @@ Waypoint has no screen buttons. Instead, there is a **touch sensor** you just ta
 | **Hold** | "Switch to Space Mode" prompt. Keep holding to confirm. |
 
 If you're tracking a specific flight with **Flight Watch**, a tap switches between the progress bar and the live panel, and a hold lets you cancel tracking.
+
+On the **Airport** departures/arrivals board, a **tap** jumps to the next page of flights and wraps back to the first page after the last, so you can quickly get back to the start. The board also turns the pages by itself; a tap just does it sooner. A **hold** still switches to Space mode.
 
 <img width="2364" height="1330" alt="air to space" src="https://github.com/user-attachments/assets/93ebf2b4-7c12-4401-9711-c856eb4d6b33" />
 
@@ -413,7 +415,7 @@ The Rail key is missing or wrong. Re-enter it under **⚙ Settings → API Keys*
 TfL sometimes has maintenance windows, especially at weekends. Wait a few minutes. Adding a free TfL key helps.
 
 **Airport mode shows no flights**
-Airport mode needs a RapidAPI key. Add one under **⚙ Settings → API Keys** (see [section 6](#rapidapi-key-airport-mode-and-flight-watch)) and reboot. Also check you entered a valid 3-letter IATA code. The board only refreshes every 60 minutes or more to save your key's free quota, so give it time after changing airport.
+Airport mode needs a RapidAPI key. Add one under **⚙ Settings → API Keys** (see [section 6](#rapidapi-key-airport-mode-and-flight-watch)) and reboot. Also check you entered a valid 3-letter IATA code. The board only refreshes every 60 minutes or more to save your key's free quota, so give it time after changing airport. If the server replies without sending any flight data, the board automatically tries again after a few seconds.
 
 **Weather isn't showing**
 Weather needs an OpenWeatherMap key, and brand-new keys can take a couple of hours to start working.
