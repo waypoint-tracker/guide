@@ -12,7 +12,7 @@ This guide takes you from the box to a working board in about ten minutes.
 2. **Join the "Waypoint" Wi-Fi network** on your phone and tell the board your home Wi-Fi details.
 3. **Open the setup page** in your browser and run the **Setup Wizard** with your postcode. Based on your postcode, it should find all your local services and pinpoint your location for plane/satellite tracking.
 4. **Enter your API keys** Paste in your API keys for the relevant services that you want.
-6. Reboot and done! Use the **touch button** to flip between stations and modes.
+5. Reboot and done! Use the **touch button** to flip between stations and modes.
 
 The rest of this guide walks through each step with pictures.
 
@@ -47,7 +47,7 @@ The rest of this guide walks through each step with pictures.
 
 > Note: there may be minor differences to the design of the 3D printed enclosure depending on the order batch - don't worry, the hardware will remain exactly the same and your Waypoint will work as intended!
 
-Train times need an API key from National Rail (see [section 6](#6-get-a-rail-key-train-times-only)). 
+Train times need an API key from National Rail (see [section 6](#6-getting-your-api-keys)). 
 Normal operation of Buses, Tube, aircraft and satellites need no keys at all.
 There is an optional API key for OpenWeather to display the weather on the screen.
 There is also an API key for RapidAPI, which you need for full functionality of the **Flight tracker** (it fetches scheduled times for a flight you're tracking) and **Airport mode** (which shows no flights without it).
@@ -282,11 +282,18 @@ Waypoint has no screen buttons. Instead, there is a **touch sensor** you just ta
 | Do this | And this happens |
 |---|---|
 | **Tap** | Flip through the details of each plane overhead, and back to the list. |
-| **Hold** | "Switch to Space Mode" prompt. Keep holding to confirm. |
+| **Hold** | Switch air board: **Overhead → Airport departures → Airport arrivals → Overhead**. The display shows which board you've switched to. |
+| **Keep holding** | A **"Switch to Space Mode"** prompt appears. Keep holding to confirm, or let go to stay put. |
+
+The airport boards only appear in the Hold cycle once a **RapidAPI key** has been saved (see [section 6](#rapidapi-key-airport-mode-and-flight-watch)), and they use the airport chosen on the **🛫 Airport** tab. Without a key, a hold goes straight to the "Switch to Space Mode" prompt instead.
+
+Waypoint remembers the board you chose, so it comes back the same way after a restart, and the **🛫 Airport** tab shows the same selection.
+
+> **Good to know:** switching between **Departures** and **Arrivals** fetches fresh flight data, which uses one request from your RapidAPI quota. Going from an airport board to Overhead and back again doesn't.
 
 If you're tracking a specific flight with **Flight Watch**, a tap switches between the progress bar and the live panel, and a hold lets you cancel tracking.
 
-On the **Airport** departures/arrivals board, a **tap** jumps to the next page of flights and wraps back to the first page after the last, so you can quickly get back to the start. The board also turns the pages by itself; a tap just does it sooner. A **hold** still switches to Space mode.
+On the **Airport** departures/arrivals board, a **tap** jumps to the next page of flights and wraps back to the first page after the last, so you can quickly get back to the start. The board also turns the pages by itself; a tap just does it sooner. A **hold** switches to the next air board, and **keep holding** goes on to Space mode.
 
 <img width="2364" height="1330" alt="air to space" src="https://github.com/user-attachments/assets/93ebf2b4-7c12-4401-9711-c856eb4d6b33" />
 
@@ -323,7 +330,7 @@ Open **http://waypoint.local** (or the IP address) any time to change settings. 
 ### ✈ Air mode (aircraft overhead)
 
 - **✈ Air**: set where Waypoint looks (search for a postcode or enter coordinates), how far out it scans, your preferred units (aviation, imperial or metric), and how close a plane has to get before the full-detail view appears. A live scan preview shows what's overhead right now.
-- **🛫 Airport**: choose an airport and whether to show **Departures** or **Arrivals**, and set how often the board refreshes (60 to 240 minutes). Needs a RapidAPI key.
+- **🛫 Airport**: choose an airport and whether to show **Departures** or **Arrivals**, and set how often the board refreshes (60 to 240 minutes). Needs a RapidAPI key. You can also switch between Overhead, Departures and Arrivals with a hold on the touch button (see [section 7](#7-using-the-touch-button)).
 - **🎯 Flight Watch**: enter a flight number to follow one particular flight. The display shows its progress, altitude and speed while it's in range. Adding a free RapidAPI key in Settings lets Waypoint look up the scheduled times for you.
 
 ### 🛸 Space mode (satellites overhead)
@@ -416,6 +423,9 @@ TfL sometimes has maintenance windows, especially at weekends. Wait a few minute
 
 **Airport mode shows no flights**
 Airport mode needs a RapidAPI key. Add one under **⚙ Settings → API Keys** (see [section 6](#rapidapi-key-airport-mode-and-flight-watch)) and reboot. Also check you entered a valid 3-letter IATA code. The board only refreshes every 60 minutes or more to save your key's free quota, so give it time after changing airport. If the server replies without sending any flight data, the board automatically tries again after a few seconds.
+
+**Holding the button in Air mode doesn't switch to Departures or Arrivals**
+The airport boards are only part of the Hold cycle when a RapidAPI key has been saved. Add one under **⚙ Settings → API Keys** and reboot. Without a key, a hold goes straight to the "Switch to Space Mode" prompt.
 
 **Weather isn't showing**
 Weather needs an OpenWeatherMap key, and brand-new keys can take a couple of hours to start working.
